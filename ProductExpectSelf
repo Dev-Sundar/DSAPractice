@@ -1,0 +1,55 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+
+        // Pass 1: Calculate and store the prefix products in the result array.
+        int prefixProduct = 1;
+        for (int i = 0; i < n; i++) {
+            result[i] = prefixProduct; // The product of elements to the left
+            prefixProduct *= nums[i];  // Update prefix for the next element
+        }
+
+        // Pass 2: Calculate postfix products and multiply them with the existing prefix products.
+        int postfixProduct = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            result[i] *= postfixProduct; // Multiply by product of elements to the right
+            postfixProduct *= nums[i];   // Update postfix for the next element
+        }
+        
+        return result;
+    }
+}
+
+Algorithm Steps 📝
+Initialization
+
+Get the length of the input array nums, let's call it n.
+
+Create a new integer array, result, of the same size n.
+
+Initialize an integer variable, prefix_product, to 1.
+
+First Pass: Calculate Prefix Products (Left to Right)
+
+Loop through the nums array from i = 0 to n - 1.
+
+In each iteration, set result[i] = prefix_product.
+
+Then, update prefix_product by multiplying it with the current element: prefix_product = prefix_product * nums[i].
+
+After this loop, result[i] will hold the product of all elements to the left of i.
+
+Second Pass: Calculate Postfix Products (Right to Left)
+
+Initialize an integer variable, postfix_product, to 1.
+
+Loop through the nums array backwards, from i = n - 1 down to 0.
+
+In each iteration, multiply the current value in result[i] by postfix_product: result[i] = result[i] * postfix_product.
+
+Then, update postfix_product by multiplying it with the current element: postfix_product = postfix_product * nums[i].
+
+Final Result
+
+Return the result array.
